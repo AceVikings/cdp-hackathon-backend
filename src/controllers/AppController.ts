@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { AuthenticatedRequest } from "../middleware/firebaseAuth";
-import { ApiResponse } from "../types/api";
+import { AuthenticatedRequest } from "../middleware/firebaseAuth.js";
+import { ApiResponse } from "../types/api.js";
 import {
   Account,
   ChatRequest,

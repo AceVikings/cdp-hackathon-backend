@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { AppController } from "../controllers/AppController";
-import { firebaseAuth } from "../middleware/firebaseAuth";
-import { generalLimiter } from "../middleware/rateLimiter";
+import { AppController } from "../controllers/AppController.js";
+import { firebaseAuth } from "../middleware/firebaseAuth.js";
+import { generalLimiter } from "../middleware/rateLimiter.js";
 
 const router = Router();
 const appController = new AppController();
