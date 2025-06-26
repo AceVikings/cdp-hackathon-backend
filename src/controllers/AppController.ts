@@ -15,7 +15,7 @@ import {
 import { CdpClient } from "@coinbase/cdp-sdk";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { generateId } from "../utils/helpers.js";
-import { config } from "../config";
+import { config } from "../config/index.js";
 export class AppController {
   // Mock data storage (in production, this would be a database)
   private accounts = new Map<string, Account>();
