@@ -13,8 +13,8 @@ import {
   Media,
 } from "../types/app";
 import { CdpClient } from "@coinbase/cdp-sdk";
-import { asyncHandler } from "../utils/asyncHandler";
-import { generateId } from "../utils/helpers";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { generateId } from "../utils/helpers.js";
 import { config } from "../config";
 export class AppController {
   // Mock data storage (in production, this would be a database)
