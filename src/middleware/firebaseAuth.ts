@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
 import { Request, Response, NextFunction } from "express";
-import { config } from "../config";
+import { config } from "../config/index.js";
 
 // Initialize Firebase Admin SDK
 if (!admin.apps.length) {
