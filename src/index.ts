@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import dotenv from "dotenv";
+import connectDB from "./config/db.js";
 
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFound } from "./middleware/notFound.js";
@@ -14,17 +15,13 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+connectDB();
 
 // Security middleware
 app.use(helmet());
 
 // CORS configuration
-app.use(
-  cors({
-    origin: process.env.CORS_ORIGIN || "http://localhost:3000",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 // Logging middleware
 app.use(morgan("combined"));
