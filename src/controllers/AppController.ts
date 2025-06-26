@@ -133,7 +133,6 @@ export class AppController {
   // POST /topup
   topup = asyncHandler(async (req: AuthenticatedRequest, res: Response) => {
     const userId = req.user?.uid;
-    const { amount, currency, paymentMethod }: TopupRequest = req.body;
 
     if (!userId) {
       const response: ApiResponse = {
@@ -144,45 +143,27 @@ export class AppController {
       return;
     }
 
-    if (!amount || amount <= 0) {
+    let account = await this.cdp.evm.getOrCreateAccount({
+      name: userId,
+    });
+
+    const faucetTransaction = await account.requestFaucet({
+      network: "base-sepolia",
+      token: "eth",
+    });
+
+    if (!faucetTransaction) {
       const response: ApiResponse = {
         success: false,
-        message: "Valid amount is required",
+        message: "Failed to initiate topup",
       };
-      res.status(400).json(response);
+      res.status(500).json(response);
       return;
     }
-
-    if (!currency || !paymentMethod) {
-      const response: ApiResponse = {
-        success: false,
-        message: "Currency and payment method are required",
-      };
-      res.status(400).json(response);
-      return;
-    }
-
-    // Mock topup process
-    const topupResult: TopupResponse = {
-      transactionId: generateId(),
-      amount,
-      currency: currency.toUpperCase(),
-      status: "completed", // Mock successful transaction
-      timestamp: new Date(),
-    };
-
-    // Update account balance
-    let account = this.accounts.get(userId);
-    if (account && account.currency === currency.toUpperCase()) {
-      account.balance += amount;
-      account.updatedAt = new Date();
-      this.accounts.set(userId, account);
-    }
-
     const response: ApiResponse = {
       success: true,
-      message: "Topup completed successfully",
-      data: topupResult,
+      message: "Topup initiated successfully",
+      data: faucetTransaction.transactionHash,
     };
 
     res.status(200).json(response);
