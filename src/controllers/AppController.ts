@@ -46,7 +46,7 @@ import {
 import { ToolExecutorService } from "../services/toolExecution.js";
 import { ApiTool, IApiTool } from "../models/apiTool.js";
 import { EthUtils } from "../utils/ethUtils.js";
-import { ToolUsage } from "@/models/toolUsage.js";
+import { ToolUsage } from "../models/toolUsage.js";
 const llm = new ChatOpenAI({
   model: "gpt-4o-mini",
   temperature: 0,
